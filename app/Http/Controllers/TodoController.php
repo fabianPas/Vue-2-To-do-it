@@ -20,11 +20,7 @@ class TodoController extends Controller
 
     public function check(Request $request, $id)
     {
-        $todo = Todo::find($id);
-
-        if ($todo == null)
-            throw new NotFoundHttpException("Todo not found for id.");
-
+        $todo = Todo::findOrFail($id);
         $todo->is_checked = $request->is_checked;
         $todo->save();
 
@@ -33,21 +29,13 @@ class TodoController extends Controller
 
     public function delete($id)
     {
-        $todo = Todo::find($id);
-
-        if ($todo == null)
-            throw new NotFoundHttpException("Todo not found for id.");
-
+        $todo = Todo::findOrFail($id);
         $todo->delete();
     }
 
     public function edit(Request $request, $id)
     {
-        $todo = Todo::find($id);
-
-        if ($todo == null)
-            throw new NotFoundHttpException("Todo not found for id.");
-
+        $todo = Todo::findOrFail($id);
         $todo->message = $request->message;
         $todo->save();
 
